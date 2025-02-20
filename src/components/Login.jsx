@@ -1,5 +1,10 @@
 import React, { useState, useRef } from "react";
 import Header from "./Header";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
 import { checkValidData } from "../utils/validate";
 import BackgroundImg from "../assets/background.jpg";
 
@@ -14,11 +19,51 @@ const Login = () => {
 
   const handleButtonClick = () => {
     //validate form
-    const message = checkValidData(email.current.value, password.current.value, username.current?.value);
+    const message = checkValidData(
+      email.current.value,
+      password.current.value,
+      username.current?.value
+    );
     console.log(email);
     console.log(password);
     console.log(username);
     setErrorMessage(message);
+
+    if (message) return; //if there is an error message, return
+    if (isSignUp) {
+      //sign up
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // ..
+          setErrorMessage(errorCode);
+        });
+    } else {
+      //sign in
+      signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorMessage);
+        });
+
+    }
   };
 
   const toggleSignUp = () => {
@@ -40,7 +85,7 @@ const Login = () => {
       <form
         onSubmit={(e) => e.preventDefault()}
         action=""
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/70  min-w-[400px] p-4  min-h-[500px] flex  flex-col rounded-md"
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/70  min-w-[400px] max-w-[410px] p-4  min-h-[500px] flex  flex-col rounded-md"
       >
         <h1 className="text-white font-semibold text-3xl text-left m-2 mb-8">
           {isSignUp ? "Sign Up" : "Sign In"}
@@ -67,7 +112,9 @@ const Login = () => {
             placeholder="Password"
             className="p-2 m-2 py-4 px-4 mb-5  text-white   border border-slate-300 bg-gray-950/40 rounded"
           />
-          <p className="text-red-600 text-center font-semibold  ">{errorMessage}</p>
+          <p className="text-red-600 text-center font-semibold   w-full">
+            {errorMessage} 
+          </p>
           <button
             className="p-2 m-2 bg-[#E50914]  text-white  cursor-pointer "
             onClick={handleButtonClick}
