@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { useNavigate } from "react-router";
 import Header from "./Header";
 import {
   createUserWithEmailAndPassword,
@@ -13,9 +14,11 @@ const Login = () => {
 
   const [errorMessage, setErrorMessage] = useState(null);
 
+  const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
   const username = useRef(null);
+  const navigate = useNavigate();
 
   const handleButtonClick = () => {
     //validate form
@@ -24,9 +27,7 @@ const Login = () => {
       password.current.value,
       username.current?.value
     );
-    console.log(email);
-    console.log(password);
-    console.log(username);
+    
     setErrorMessage(message);
 
     if (message) return; //if there is an error message, return
@@ -40,6 +41,19 @@ const Login = () => {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
+          updateProfile(auth.currentUser, {
+            displayName: name.current.value,
+            photoURL: "https://example.com/jane-q-user/profile.jpg",
+          })
+            .then(() => {
+              // Profile updated!
+              navigate("/browse");
+            })
+            .catch((error) => {
+              // An error occurred
+              setErrorMessage(error.message);
+            });
+
           // ...
         })
         .catch((error) => {
@@ -54,7 +68,7 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log(user);
+          
           // ...
         })
         .catch((error) => {
