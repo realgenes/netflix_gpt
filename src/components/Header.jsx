@@ -50,10 +50,10 @@ const Header = () => {
               <img
                 src={user.photoURL}
                 alt="User Profile"
-                className="w-10 h-10 rounded-full border-2 border-white"
+                className="w-10 h-10 rounded-full border-2 border-black"
               />
             ) : (
-              <div className="w-10 h-10 rounded-full bg-red-600 flex items-center justify-center border-2 border-white">
+              <div className="w-10 h-10  bg-red-600 flex items-center justify-center border-2 border-black">
                 <span className="text-white font-bold">
                   {user.displayName
                     ? user.displayName.charAt(0).toUpperCase()
@@ -61,7 +61,7 @@ const Header = () => {
                 </span>
               </div>
             )}
-            <button onClick={handleSignOut} className="text-2xl">
+            <button onClick={handleSignOut} className="text-xl">
               Sign Out
             </button>
           </>
