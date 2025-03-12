@@ -19,3 +19,9 @@ export const SUPPORTED_LANGUAGES = [
   { identifier: "german", name: "German" },
   { identifier: "spanish", name: "Spanish" },
 ];
+
+export const GEMINI_API_KEY =
+  "AIzaSyAuwc7rt3AKGo-b3nryxBZQUN_6N7EDt94";
+
+// export const OPENAI_API_KEY1 =
+//   "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";
