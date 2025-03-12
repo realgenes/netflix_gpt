@@ -8,21 +8,29 @@ const SecondaryContainer = () => {
   return (
     <div className="bg-black">
       <div className="-mt-40 relative z-20">
-        {movies.nowPlayingMovies && (
-          <MovieList title={"Now playing"} movies={movies.nowPlayingMovies} />
-        )}
-        {movies.upcomingMovies && (
-          <MovieList title={"Upcoming movies"} movies={movies.upcomingMovies} />
-        )}
-        {movies.popularMovies && (
-          <MovieList title={"Popular movies"} movies={movies.popularMovies} />
-        )}
-        {movies.topRatedMovies && (
-          <MovieList
-            title={"Top rated movies"}
-            movies={movies.topRatedMovies}
-          />
-        )}
+        <div
+          className="pl-4 md:pl-12 overflow-x-hidden"
+          style={{ overflowX: "hidden" }}
+        >
+          {movies.nowPlayingMovies && (
+            <MovieList title={"Now playing"} movies={movies.nowPlayingMovies} />
+          )}
+          {movies.upcomingMovies && (
+            <MovieList
+              title={"Upcoming movies"}
+              movies={movies.upcomingMovies}
+            />
+          )}
+          {movies.popularMovies && (
+            <MovieList title={"Popular movies"} movies={movies.popularMovies} />
+          )}
+          {movies.topRatedMovies && (
+            <MovieList
+              title={"Top rated movies"}
+              movies={movies.topRatedMovies}
+            />
+          )}
+        </div>
       </div>
     </div>
   );

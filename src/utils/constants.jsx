@@ -7,5 +7,15 @@ export const API_OPTIONS = {
   },
 };
 
-
 export const IMG_CDN_URL = "https://image.tmdb.org/t/p/w780/";
+
+export const SUPPORTED_LANGUAGES = [
+  { identifier: "en", name: "English" },
+  { identifier: "hindi", name: "Hindi" },
+  { identifier: "tamil", name: "Tamil" },
+  { identifier: "telugu", name: "Telugu" },
+  { identifier: "malayalam", name: "Malayalam" },
+  { identifier: "french", name: "French" },
+  { identifier: "german", name: "German" },
+  { identifier: "spanish", name: "Spanish" },
+];
