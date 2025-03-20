@@ -29,7 +29,7 @@ const GptSearchBar = () => {
   //call Gemini API
   const handleGptSearchClick = async () => {
     try {
-      console.log(searchText.current.value);
+      
       // Initialize Gemini API (moved require to import)
       const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
@@ -38,22 +38,22 @@ const GptSearchBar = () => {
       const prompt =
         "Act as a movie recommendation system and suggest some movies for the query " +
         searchText.current.value +
-        ". Only give me names of 5 movies, comma separated like the example result given ahead. Example result: Gadar, Sholey, Don, Golmaal, Koi mil gya";
+        ". Only give me names of 10 movies, comma separated like the example result given ahead. Example result: Gadar, Sholey, Don, Golmaal, Koi mil gya";
 
       const result = await model.generateContent(prompt);
-      console.log(result.response.text());
+      
 
       if (!result) return;
 
       // Store the text in a variable to avoid calling .text() twice
       const responseText = result.response.text();
       const gptMovies = responseText.split(",").map((movie) => movie.trim());
-      console.log(gptMovies);
+     
 
       //for each movie I will search TMDB api
       const promiseArray = gptMovies.map((movie) => searchMovieTMDB(movie));
       const tmdbResults = await Promise.all(promiseArray);
-      console.log(tmdbResults);
+   
 
       dispatch(
         addGptMovieResult({ movieResults: tmdbResults, movieNames: gptMovies })

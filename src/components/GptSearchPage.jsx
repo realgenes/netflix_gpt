@@ -6,7 +6,7 @@ import BackgroundImg from '../assets/background.jpg'
 const GptSearch = () => {
   return (
     <div>
-      <div className="absolute w-full h-screen -z-10">
+      <div className="fixed w-full h-screen -z-10">
         <img
           src={BackgroundImg}
           alt=""
