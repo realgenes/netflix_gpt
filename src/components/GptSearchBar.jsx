@@ -29,7 +29,6 @@ const GptSearchBar = () => {
   //call Gemini API
   const handleGptSearchClick = async () => {
     try {
-      
       // Initialize Gemini API (moved require to import)
       const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
@@ -41,45 +40,51 @@ const GptSearchBar = () => {
         ". Only give me names of 10 movies, comma separated like the example result given ahead. Example result: Gadar, Sholey, Don, Golmaal, Koi mil gya";
 
       const result = await model.generateContent(prompt);
-      
 
-      if (!result) return;
+      if (!result) {
+        console.error("No result returned from Gemini API");
+        dispatch(setApiError("No response from AI service"));
+        return;
+      }
 
-      // Store the text in a variable to avoid calling .text() twice
-      const responseText = result.response.text();
+      // Correctly await the text() method as it returns a Promise
+      const responseText = await result.response.text();
+
       const gptMovies = responseText.split(",").map((movie) => movie.trim());
-     
 
       //for each movie I will search TMDB api
       const promiseArray = gptMovies.map((movie) => searchMovieTMDB(movie));
       const tmdbResults = await Promise.all(promiseArray);
-   
 
       dispatch(
         addGptMovieResult({ movieResults: tmdbResults, movieNames: gptMovies })
       );
     } catch (error) {
       console.error("Error in GPT search:", error);
-      dispatch(setApiError(error.message));
+      // Add more detailed error logging
+      if (error.response) {
+        console.error("Error response:", error.response);
+      }
+      dispatch(setApiError(error.message || "Failed to get recommendations"));
     }
   };
 
   return (
-    <div className="pt-28 ">
+    <div className="pt-[8rem]  md:pt-24">
       <form
-        className="bg-black grid grid-cols-12 w-1/2 mx-auto"
+        className="bg-black grid grid-cols-12 w-[80%] md:w-1/2  mx-auto my-10 md:my-28 "
         onSubmit={(e) => e.preventDefault()}
       >
         <input
           ref={searchText}
           type="text"
-          className="p-4 my-1 ml-1 bg-white col-span-9"
+          className="p-2 md:p-4 my-1 ml-1 bg-white col-span-8 md:col-span-9 "
           placeholder={lang[langKey].gptSearchPlaceholder}
         />
 
         <button
           type="submit"
-          className="py-2 my-1 mr-1 px-4 bg-red-600 text-white col-span-3"
+          className="py-2 my-1 mr-1 px-2 md:px-4 bg-red-600 text-white col-span-4 md:col-span-3 min-w-0 md:min-w-20  text-sm md:text-base"
           onClick={handleGptSearchClick}
         >
           {lang[langKey].search}
