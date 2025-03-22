@@ -77,22 +77,22 @@ const Header = () => {
 
   return (
     <div
-      className="absolute w-screen h-16 px-8 py-2 
-    md:bg-gradient-to-b from-black z-50 flex flex-col
-    md:flex-row justify-between items-center "
+      className="bg-black w-full  md:absolute md:w-screen h-16 px-4 py-2 
+    bg-gradient-to-b from-black z-50 flex flex-row justify-between 
+    md:flex-row  items-center not-only:"
     >
       <img
         src={netflixLogo}
         alt="Netflix Logo"
-        className="h-12 cursor-pointer"
+        className="md:h-12 cursor-pointer h-8 sm:10"
         onClick={() => navigate("/browse")}
       />
-      <div className="text-white flex items-center space-x-4 mx-auto md:mx-0">
+      <div className="text-white flex items-center space-x-4 mx-auto md:mx-0 justify-between">
         {showGptSearch && (
           <select
             name="language"
             id="language-select"
-            className="p-2 py-3 bg-black text-white"
+            className="p-2 py-3 bg-black text-white hidden md:block"
             onChange={handleLanguageChange}
           >
             {SUPPORTED_LANGUAGES.map((lang) => (
@@ -105,7 +105,7 @@ const Header = () => {
 
         {shouldShowGptButton() && (
           <button
-            className="py-2 px-4 m-2 mx-4 bg-red-800 rounded hover:bg-red-700 transition-colors"
+            className="px-2 py:3 md:py-2 md:px-4 md:m-2 mx-4 bg-red-800 rounded hover:bg-red-700 transition-colors "
             onClick={handleGptSearchClick}
           >
             {getGptButtonText()}
@@ -128,7 +128,7 @@ const Header = () => {
                 </span>
               </div>
             )}
-            <button onClick={handleSignOut} className="text-xl hover:underline">
+            <button onClick={handleSignOut} className="text-xl hover:underline ">
               Sign Out
             </button>
           </>

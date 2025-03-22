@@ -6,8 +6,8 @@ const SecondaryContainer = () => {
   const movies = useSelector((store) => store.movies);
 
   return (
-    <div className="bg-black">
-      <div className="-mt-40 relative z-20">
+    <div className="bg-black h-screen">
+      <div className="md:-mt-40 relative z-20">
         <div
           className="pl-4 md:pl-12 overflow-x-hidden"
           style={{ overflowX: "hidden" }}
