@@ -57,13 +57,7 @@ const Header = () => {
   const isLoginPage = location.pathname === "/";
 
   return (
-    <div
-      className={`w-full px-4 md:px-8 py-2 ${
-        isLoginPage
-          ? "bg-black"
-          : "bg-gradient-to-b from-black/80 to-transparent"
-      } z-50`}
-    >
+    <div className="w-full px-4 md:px-8 py-2 bg-gradient-to-b from-black/80 to-transparent z-50">
       <div className="flex items-center justify-between">
         <img
           className="w-24 md:w-44 cursor-pointer"
@@ -76,13 +70,13 @@ const Header = () => {
             {shouldShowGptButton() && (
               <button
                 onClick={handleGptSearchClick}
-                className="px-2 ml-3 py-1 text-[.8rem] md:py-2  md:mx-4 md:my-2 bg-purple-800 rounded-lg opacity-80 hover:opacity-100 text-white"
+                className="py-2 px-4 mx-4 my-2 bg-purple-800 rounded-lg opacity-80 hover:opacity-100 text-white"
               >
                 {getGptButtonText()}
               </button>
             )}
             <select
-              className="px-[0.3rem] py-[0.5rem] text-[0.8rem]  my-1 md:p-2 md:mx-4 md:my-2 bg-gray-800 text-white rounded-lg"
+              className="p-2 mx-4 my-2 bg-gray-800 text-white rounded-lg"
               onChange={handleLanguageChange}
             >
               {SUPPORTED_LANGUAGES.map((lang) => (
