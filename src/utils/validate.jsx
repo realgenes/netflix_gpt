@@ -1,18 +1,18 @@
-export const checkValidData = (email, password,userName) => {
+export const checkValidData = (email, password, userName) => {
   const isEmailValid = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/.test(
     email
   );
 
   const isUsernameValid = /^[a-z0-9_-]{3,15}$/.test(userName);
 
-  if(!isUsernameValid) {
-    return "Please enter a valid username";
+  if (!isUsernameValid) {
+    return "Username must be 3-15 characters long and can only contain lowercase letters, numbers, underscores (_), and hyphens (-). Example: john_doe, user123, test-user";
   }
 
   const isPasswordValid =
     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(password);
-  
-  if(!isEmailValid) {
+
+  if (!isEmailValid) {
     return "Please enter a valid email address";
   }
 
@@ -22,4 +22,3 @@ export const checkValidData = (email, password,userName) => {
 
   return null;
 };
- 

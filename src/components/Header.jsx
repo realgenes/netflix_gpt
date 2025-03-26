@@ -23,30 +23,17 @@ const Header = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-
-      // Navigate to browse page if user is authenticated
-      if (currentUser) {
-        // Only redirect if not already on a valid page
-        if (location.pathname === "/") {
-          navigate("/browse");
-        }
-      } else {
-        navigate("/");
-      }
     });
 
-    // Cleanup subscription
     return () => unsubscribe();
-  }, [navigate, location.pathname]);
+  }, []);
 
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
-        // Sign-out successful.
         navigate("/");
       })
       .catch((error) => {
-        // An error happened.
         navigate("/error");
       });
   };
@@ -60,80 +47,60 @@ const Header = () => {
   };
 
   const getGptButtonText = () => {
-    // If we're on browse page and GPT search is NOT showing, display "GPT Search"
-    if (location.pathname === "/browse" && !showGptSearch) {
-      return "GPT Search";
-    }
-    // If GPT search IS showing, display "Home Page"
-    else if (showGptSearch) {
-      return "Home Page";
-    }
-    // Default fallback
-    return "GPT Search";
+    return showGptSearch ? "Homepage" : "GPT Search";
   };
-    const shouldShowGptButton = () => {
-      return user && location.pathname !== "/";
-    };
+
+  const shouldShowGptButton = () => {
+    return location.pathname === "/browse";
+  };
+
+  const isLoginPage = location.pathname === "/";
 
   return (
     <div
-      className="bg-black w-full  md:absolute md:w-screen h-16 px-4 py-2 
-    bg-gradient-to-b from-black z-50 flex flex-row justify-between 
-    md:flex-row  items-center not-only:"
+      className={`w-full px-4 md:px-8 py-2 ${
+        isLoginPage
+          ? "bg-black"
+          : "bg-gradient-to-b from-black/80 to-transparent"
+      } z-50`}
     >
-      <img
-        src={netflixLogo}
-        alt="Netflix Logo"
-        className="md:h-12 cursor-pointer h-8 sm:10"
-        onClick={() => navigate("/browse")}
-      />
-      <div className="text-white flex items-center space-x-4 mx-auto md:mx-0 justify-between">
-        {showGptSearch && (
-          <select
-            name="language"
-            id="language-select"
-            className="p-2 py-3 bg-black text-white hidden md:block"
-            onChange={handleLanguageChange}
-          >
-            {SUPPORTED_LANGUAGES.map((lang) => (
-              <option key={lang.identifier} value={lang.identifier}>
-                {lang.name}
-              </option>
-            ))}
-          </select>
-        )}
-
-        {shouldShowGptButton() && (
-          <button
-            className="px-2 py:3 md:py-2 md:px-4 md:m-2 mx-4 bg-red-800 rounded hover:bg-red-700 transition-colors "
-            onClick={handleGptSearchClick}
-          >
-            {getGptButtonText()}
-          </button>
-        )}
-        {user ? (
-          <>
-            {user.photoURL ? (
-              <img
-                src={user.photoURL}
-                alt="User Profile"
-                className="w-10 h-10 rounded-full border-2 border-black"
-              />
-            ) : (
-              <div className="w-10 h-10 bg-white flex items-center justify-center border-2 border-black ">
-                <span className="text-black text-[1.5rem] font-bold">
-                  {user.displayName
-                    ? user.displayName.charAt(0).toUpperCase()
-                    : user.email.charAt(0).toUpperCase()}
-                </span>
-              </div>
+      <div className="flex items-center justify-between">
+        <img
+          className="w-24 md:w-44 cursor-pointer"
+          src={netflixLogo}
+          alt="Netflix Logo"
+          onClick={() => navigate("/browse")}
+        />
+        {user && (
+          <div className="flex items-center gap-4">
+            {shouldShowGptButton() && (
+              <button
+                onClick={handleGptSearchClick}
+                className="px-2 ml-3 py-1 text-[.8rem] md:py-2  md:mx-4 md:my-2 bg-purple-800 rounded-lg opacity-80 hover:opacity-100 text-white"
+              >
+                {getGptButtonText()}
+              </button>
             )}
-            <button onClick={handleSignOut} className="text-xl hover:underline ">
-              Sign Out
-            </button>
-          </>
-        ) : (
-          <FontAwesomeIcon icon={faUser} className="text-3xl" />
+            <select
+              className="px-[0.3rem] py-[0.5rem] text-[0.8rem]  my-1 md:p-2 md:mx-4 md:my-2 bg-gray-800 text-white rounded-lg"
+              onChange={handleLanguageChange}
+            >
+              {SUPPORTED_LANGUAGES.map((lang) => (
+                <option key={lang.identifier} value={lang.identifier}>
+                  {lang.name}
+                </option>
+              ))}
+            </select>
+            <div className="flex items-center gap-2">
+              <FontAwesomeIcon icon={faUser} className="text-white text-xl" />
+              <button
+                onClick={handleSignOut}
+                className="text-white text-sm hover:text-gray-300"
+              >
+                (Sign Out)
+              </button>
+            </div>
+          </div>
         )}
       </div>
     </div>

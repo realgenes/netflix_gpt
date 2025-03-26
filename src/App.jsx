@@ -6,11 +6,13 @@ import { MovieProvider } from "./context/MovieContext";
 
 function App() {
   return (
-    <MovieProvider>
-      <Provider store={appStore}>
-        <Body />
-      </Provider>
-    </MovieProvider>
+    <div className="overflow-x-hidden">
+      <MovieProvider>
+        <Provider store={appStore}>
+          <Body />
+        </Provider>
+      </MovieProvider>
+    </div>
   );
 }
 
