@@ -37,7 +37,7 @@ const GptSearchBar = () => {
       const prompt =
         "Act as a movie recommendation system and suggest some movies for the query " +
         searchText.current.value +
-        ". Only give me names of 10 movies, comma separated like the example result given ahead. Example result: Gadar, Sholey, Don, Golmaal, Koi mil gya";
+        ". Only give me names of 10 movies, comma separated like the example result given ahead and if the movie name is searched also include it in result. Example result: Gadar, Sholey, Don, Golmaal, Koi mil gya";
 
       const result = await model.generateContent(prompt);
 
