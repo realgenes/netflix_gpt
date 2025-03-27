@@ -70,13 +70,13 @@ const Header = () => {
             {shouldShowGptButton() && (
               <button
                 onClick={handleGptSearchClick}
-                className="text-[0.8rem] py-1 px-4 ml-2 my-2 bg-purple-800 rounded-lg opacity-80 hover:opacity-100 text-white"
+                className="text-[0.8rem] py-1 px-4 ml-1  md:mr-4 my-2 bg-purple-800 rounded-lg opacity-80 hover:opacity-100 text-white transform scale-80 md:scale-100"
               >
                 {getGptButtonText()}
               </button>
             )}
             <select
-              className="p-2 text-[0.7rem] ml-1 my-2 bg-gray-800 text-white rounded-lg"
+              className="p-2 text-[0.7rem] -ml-4 md:mr-2 transform scale-80 md:scale-100 my-2 bg-gray-800 text-white rounded-lg"
               onChange={handleLanguageChange}
             >
               {SUPPORTED_LANGUAGES.map((lang) => (
@@ -85,7 +85,7 @@ const Header = () => {
                 </option>
               ))}
             </select>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1  md:gap-2 -ml-3">
               <FontAwesomeIcon icon={faUser} className="text-white text-xl" />
               <button
                 onClick={handleSignOut}
