@@ -70,13 +70,13 @@ const Header = () => {
             {shouldShowGptButton() && (
               <button
                 onClick={handleGptSearchClick}
-                className="py-2 px-4 mx-4 my-2 bg-purple-800 rounded-lg opacity-80 hover:opacity-100 text-white"
+                className="text-[0.8rem] py-1 px-4 ml-2 my-2 bg-purple-800 rounded-lg opacity-80 hover:opacity-100 text-white"
               >
                 {getGptButtonText()}
               </button>
             )}
             <select
-              className="p-2 mx-4 my-2 bg-gray-800 text-white rounded-lg"
+              className="p-2 text-[0.7rem] ml-1 my-2 bg-gray-800 text-white rounded-lg"
               onChange={handleLanguageChange}
             >
               {SUPPORTED_LANGUAGES.map((lang) => (

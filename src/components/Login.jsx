@@ -99,7 +99,7 @@ const Login = () => {
       <form
         onSubmit={(e) => e.preventDefault()}
         action=""
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/70  min-w-[350px] md:min-w-[400px] max-w-[410px] p-4  min-h-[500px] flex  flex-col rounded-md"
+        className="absolute -mt-20 md:mt-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black/70  min-w-[350px] md:min-w-[400px] max-w-[410px] p-4  min-h-[500px] flex  flex-col rounded-md"
       >
         <h1 className="text-white font-semibold text-3xl text-left m-2 mb-8">
           {isSignUp ? "Sign Up" : "Sign In"}
