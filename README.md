@@ -1,6 +1,6 @@
-# Netflix Gemini
+# Netflix Gpt
 
-Netflix Gemini is an advanced, interactive movie and TV show recommendation platform inspired by Netflix, powered by Google's Gemini AI technology. Built with modern JavaScript, HTML, and CSS, this project demonstrates a seamless integration of AI-driven search, user authentication, and an immersive UI/UX reminiscent of the Netflix experience.
+Netflix Gpt is an advanced, interactive movie and TV show recommendation platform inspired by Netflix, powered by Google's Gemini AI technology. Built with modern JavaScript, HTML, and CSS, this project demonstrates a seamless integration of AI-driven search, user authentication, and an immersive UI/UX reminiscent of the Netflix experience.
 
 ## 🚀 Features
 
